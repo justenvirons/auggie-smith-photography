@@ -27,6 +27,11 @@ website:
     background: dark
     center: "© 2026 Auggie Smith Photography &nbsp;·&nbsp; All Rights Reserved"
 
+execute:
+  echo: false
+  warning: false
+  message: false
+
 format:
   html:
     theme: darkly

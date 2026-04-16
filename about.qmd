@@ -2,57 +2,96 @@
 title: ""
 ---
 
-<div class="about-container">
+```{r}
+#| label: setup
+#| include: false
+source("R/gallery.R")
+```
 
-<img
-  src="https://picsum.photos/seed/auggie-about/1720/968"
-  class="about-hero-img"
-  alt="Auggie Smith at work in the field">
+```{r}
+#| label: about-hero
+tags$div(
+  class = "about-container",
 
-## About
+  # ── Banner image ──────────────────────────────────────────────────────────
+  tags$img(
+    src   = picsum_url("auggie-about", 1720L, 968L),
+    class = "about-hero-img",
+    alt   = "Auggie Smith photographing in the field"
+  ),
 
-I am a photographer based in the Pacific Northwest, drawn to the quiet
-beauty of landscapes, the authenticity of documentary portraiture, and
-the unexpected poetry found in city streets.
+  # ── Bio ───────────────────────────────────────────────────────────────────
+  tags$h2("About"),
+  tags$p(
+    "I am a photographer based in the Pacific Northwest, drawn to the quiet",
+    "beauty of landscapes, the authenticity of documentary portraiture, and",
+    "the unexpected poetry found in city streets."
+  ),
+  tags$p(
+    "Photography, for me, is an act of paying attention \u2014 of being present",
+    "enough to notice what most people walk past. Whether I am waiting for",
+    "light to fall just right on a mountain ridge, or chasing a fleeting",
+    "expression in a crowded market, I am always searching for that singular",
+    "moment where everything comes together."
+  ),
+  tags$p(
+    "My work has been exhibited across the region and published in editorial",
+    "and commercial contexts. I am available for landscape, portrait, and",
+    "editorial assignments, as well as fine-art print commissions."
+  ),
 
-Photography, for me, is an act of paying attention — of being present
-enough to notice what most people walk past. Whether I am waiting for
-light to fall just right on a mountain ridge, or chasing a fleeting
-expression in a crowded market, I am always searching for that singular
-moment where everything comes together.
+  # ── Recognition ───────────────────────────────────────────────────────────
+  tags$h2("Recognition & Publications"),
+  {
+    recognition <- list(
+      list(year = 2024, item = "Pacific Northwest Photography Award \u2014 Landscape finalist"),
+      list(year = 2022, item = "Travel + Leisure Magazine \u2014 Contributing photographer (2022\u20132024)"),
+      list(year = 2023, item = "Northwest Galleries, Portland \u2014 Solo exhibition, \u201cLight & Distance\u201d"),
+      list(year = 2021, item = "Documentary Photography Fellowship \u2014 State Arts Commission"),
+      list(year = 2020, item = "Outdoor Photographer \u2014 Featured portfolio")
+    )
+    # Sort descending by year
+    recognition <- recognition[order(sapply(recognition, `[[`, "year"), decreasing = TRUE)]
+    items <- lapply(recognition, function(r) {
+      tags$li(
+        tags$strong(r$year),
+        HTML(paste0(" &nbsp;\u2014&nbsp; ", r$item))
+      )
+    })
+    do.call(tags$ul, items)
+  },
 
-My work has been exhibited across the region and published in editorial
-and commercial contexts. I am available for landscape, portrait, and
-editorial assignments, as well as fine-art print commissions.
+  # ── Approach ──────────────────────────────────────────────────────────────
+  tags$h2("Approach"),
+  tags$p(
+    "I believe a photograph earns its place not by being technically",
+    "perfect, but by making you feel something. I shoot available light",
+    "whenever possible, preferring the honesty of natural conditions over",
+    "the control of a studio. My post-processing philosophy is restrained:",
+    "enhance what is already there, remove nothing that belongs."
+  ),
 
-## Recognition & Publications
+  # ── Equipment ─────────────────────────────────────────────────────────────
+  tags$h2("Equipment"),
+  {
+    gear <- c(
+      "Nikon Z7 II (primary body)",
+      "NIKKOR Z 24mm f/1.8 S",
+      "NIKKOR Z 50mm f/1.2 S",
+      "NIKKOR Z 85mm f/1.8 S",
+      "Carbon-fibre tripod with ball head",
+      "Neutral-density filter set (3\u201310 stop)"
+    )
+    items <- lapply(gear, tags$li)
+    do.call(tags$ul, items)
+  },
 
-- **Pacific Northwest Photography Award** · 2024 — Landscape finalist
-- ***Travel + Leisure Magazine*** · 2022–2024 — Contributing photographer
-- **Northwest Galleries, Portland** · 2023 — Solo exhibition, *Light & Distance*
-- **Documentary Photography Fellowship** · State Arts Commission, 2021
-- ***Outdoor Photographer*** · 2020 — Featured portfolio
+  tags$hr(),
 
-## Approach
-
-I believe a photograph earns its place not by being technically
-perfect, but by making you feel something. I shoot available light
-whenever possible, preferring the honesty of natural conditions over the
-control of a studio. My post-processing philosophy is restrained: enhance
-what is already there, remove nothing that belongs.
-
-## Equipment
-
-I shoot primarily with a **Nikon Z7 II** paired with a small selection
-of prime lenses — the 24mm f/1.8, 50mm f/1.2, and 85mm f/1.8 cover
-most situations. For landscape work I carry a carbon-fibre tripod and
-neutral-density filters. The camera is a tool; the eye behind it is what
-matters.
-
----
-
-<div style="text-align: center; margin-top: 2.5rem;">
-  <a href="contact.html" class="btn-photo btn-photo-muted">Get in Touch</a>
-</div>
-
-</div>
+  # ── CTA ───────────────────────────────────────────────────────────────────
+  tags$div(
+    style = "text-align:center; margin-top:2rem;",
+    tags$a(href = "contact.html", class = "btn-photo btn-photo-muted", "Get in Touch")
+  )
+)
+```

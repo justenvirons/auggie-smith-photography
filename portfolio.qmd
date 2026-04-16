@@ -3,272 +3,119 @@ title: ""
 page-layout: full
 ---
 
-<h1 class="section-title" style="padding-top: 2.5rem;">Portfolio</h1>
-<hr class="section-divider">
+```{r}
+#| label: setup
+#| include: false
+source("R/gallery.R")
+```
 
-<div class="category-nav">
-  <a href="#landscapes" class="category-btn">Landscapes</a>
-  <a href="#portraits"  class="category-btn">Portraits</a>
-  <a href="#street"     class="category-btn">Street</a>
-  <a href="#architecture" class="category-btn">Architecture</a>
-</div>
+```{r}
+#| label: page-heading
+tagList(
+  section_heading("Portfolio"),
+  tags$div(
+    class = "category-nav",
+    tags$a(href = "#landscapes",   class = "category-btn", "Landscapes"),
+    tags$a(href = "#portraits",    class = "category-btn", "Portraits"),
+    tags$a(href = "#street",       class = "category-btn", "Street"),
+    tags$a(href = "#architecture", class = "category-btn", "Architecture")
+  )
+)
+```
 
-<!-- ── Landscapes ─────────────────────────────── -->
+```{r}
+#| label: landscapes
+landscapes <- data.frame(
+  seed = paste0("land", 1:6),
+  title = c(
+    "Mountain vista at sunrise",
+    "Coastal cliffs at dusk",
+    "Forest path in autumn",
+    "Desert sand dunes",
+    "Lake reflection at dawn",
+    "Rolling hills at golden hour"
+  ),
+  stringsAsFactors = FALSE
+)
 
-<h2 class="section-title" id="landscapes">Landscapes</h2>
-<hr class="section-divider">
-<p class="section-subtitle">Light, land, and open horizons</p>
+gallery_section(
+  id       = "landscapes",
+  heading  = "Landscapes",
+  subtitle = "Light, land, and open horizons",
+  photos   = landscapes
+)
+```
 
-<div class="gallery-grid">
+```{r}
+#| label: portraits
+portraits <- data.frame(
+  seed = paste0("port", 1:6),
+  title = c(
+    "Window light portrait",
+    "Environmental portrait",
+    "Candid moment",
+    "Studio portrait",
+    "Documentary portrait",
+    "Golden hour portrait"
+  ),
+  stringsAsFactors = FALSE
+)
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land1/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Mountain vista at sunrise">
-      <img src="https://picsum.photos/seed/land1/800/600"
-           alt="Mountain vista at sunrise">
-    </a>
-  </div>
+gallery_section(
+  id       = "portraits",
+  heading  = "Portraits",
+  subtitle = "People in their truest light",
+  photos   = portraits
+)
+```
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land2/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Coastal cliffs at dusk">
-      <img src="https://picsum.photos/seed/land2/800/600"
-           alt="Coastal cliffs at dusk">
-    </a>
-  </div>
+```{r}
+#| label: street
+street <- data.frame(
+  seed = paste0("str", 1:6),
+  title = c(
+    "Urban life",
+    "City at night",
+    "Market scene",
+    "Rain-slicked streets",
+    "Morning commute",
+    "Street performer"
+  ),
+  stringsAsFactors = FALSE
+)
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land3/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Forest path in autumn">
-      <img src="https://picsum.photos/seed/land3/800/600"
-           alt="Forest path in autumn">
-    </a>
-  </div>
+gallery_section(
+  id       = "street",
+  heading  = "Street",
+  subtitle = "The city\u2019s unrehearsed moments",
+  photos   = street
+)
+```
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land4/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Desert sand dunes">
-      <img src="https://picsum.photos/seed/land4/800/600"
-           alt="Desert sand dunes">
-    </a>
-  </div>
+```{r}
+#| label: architecture
+architecture <- data.frame(
+  seed = paste0("arch", 1:6),
+  title = c(
+    "Modern facade",
+    "Historic building",
+    "Interior spaces",
+    "Geometric patterns",
+    "Bridge structure",
+    "Urban skyline"
+  ),
+  stringsAsFactors = FALSE
+)
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land5/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Lake reflection at dawn">
-      <img src="https://picsum.photos/seed/land5/800/600"
-           alt="Lake reflection at dawn">
-    </a>
-  </div>
+gallery_section(
+  id       = "architecture",
+  heading  = "Architecture",
+  subtitle = "Structure, shadow, and geometry",
+  photos   = architecture
+)
+```
 
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/land6/1600/1200"
-       class="lightbox" data-gallery="landscapes"
-       title="Rolling hills at golden hour">
-      <img src="https://picsum.photos/seed/land6/800/600"
-           alt="Rolling hills at golden hour">
-    </a>
-  </div>
-
-</div>
-
-<!-- ── Portraits ──────────────────────────────── -->
-
-<h2 class="section-title" id="portraits">Portraits</h2>
-<hr class="section-divider">
-<p class="section-subtitle">People in their truest light</p>
-
-<div class="gallery-grid">
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port1/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Window light portrait">
-      <img src="https://picsum.photos/seed/port1/800/600"
-           alt="Window light portrait">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port2/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Environmental portrait">
-      <img src="https://picsum.photos/seed/port2/800/600"
-           alt="Environmental portrait">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port3/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Candid moment">
-      <img src="https://picsum.photos/seed/port3/800/600"
-           alt="Candid moment">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port4/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Studio portrait">
-      <img src="https://picsum.photos/seed/port4/800/600"
-           alt="Studio portrait">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port5/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Documentary portrait">
-      <img src="https://picsum.photos/seed/port5/800/600"
-           alt="Documentary portrait">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/port6/1600/1200"
-       class="lightbox" data-gallery="portraits"
-       title="Golden hour portrait">
-      <img src="https://picsum.photos/seed/port6/800/600"
-           alt="Golden hour portrait">
-    </a>
-  </div>
-
-</div>
-
-<!-- ── Street ─────────────────────────────────── -->
-
-<h2 class="section-title" id="street">Street</h2>
-<hr class="section-divider">
-<p class="section-subtitle">The city's unrehearsed moments</p>
-
-<div class="gallery-grid">
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str1/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="Urban life">
-      <img src="https://picsum.photos/seed/str1/800/600"
-           alt="Urban life">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str2/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="City at night">
-      <img src="https://picsum.photos/seed/str2/800/600"
-           alt="City at night">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str3/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="Market scene">
-      <img src="https://picsum.photos/seed/str3/800/600"
-           alt="Market scene">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str4/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="Rain-slicked streets">
-      <img src="https://picsum.photos/seed/str4/800/600"
-           alt="Rain-slicked streets">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str5/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="Morning commute">
-      <img src="https://picsum.photos/seed/str5/800/600"
-           alt="Morning commute">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/str6/1600/1200"
-       class="lightbox" data-gallery="street"
-       title="Street performer">
-      <img src="https://picsum.photos/seed/str6/800/600"
-           alt="Street performer">
-    </a>
-  </div>
-
-</div>
-
-<!-- ── Architecture ───────────────────────────── -->
-
-<h2 class="section-title" id="architecture">Architecture</h2>
-<hr class="section-divider">
-<p class="section-subtitle">Structure, shadow, and geometry</p>
-
-<div class="gallery-grid">
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch1/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Modern facade">
-      <img src="https://picsum.photos/seed/arch1/800/600"
-           alt="Modern facade">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch2/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Historic building">
-      <img src="https://picsum.photos/seed/arch2/800/600"
-           alt="Historic building">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch3/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Interior spaces">
-      <img src="https://picsum.photos/seed/arch3/800/600"
-           alt="Interior spaces">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch4/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Geometric patterns">
-      <img src="https://picsum.photos/seed/arch4/800/600"
-           alt="Geometric patterns">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch5/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Bridge structure">
-      <img src="https://picsum.photos/seed/arch5/800/600"
-           alt="Bridge structure">
-    </a>
-  </div>
-
-  <div class="gallery-item">
-    <a href="https://picsum.photos/seed/arch6/1600/1200"
-       class="lightbox" data-gallery="architecture"
-       title="Urban skyline">
-      <img src="https://picsum.photos/seed/arch6/800/600"
-           alt="Urban skyline">
-    </a>
-  </div>
-
-</div>
-
-<div class="cta-block">
-  <a href="contact.html" class="btn-photo btn-photo-muted">Inquire About Prints</a>
-</div>
+```{r}
+#| label: portfolio-cta
+cta_block("Inquire About Prints", "contact.html", muted = TRUE)
+```

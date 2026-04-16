@@ -3,74 +3,56 @@ title: ""
 page-layout: full
 ---
 
-<!-- ── Hero ───────────────────────────────────── -->
+```{r}
+#| label: setup
+#| include: false
+source("R/gallery.R")
+```
 
-<div class="hero">
-  <img
-    src="https://picsum.photos/seed/auggie-hero/1920/1080"
-    class="hero-image"
-    alt="Featured landscape photograph by Auggie Smith">
-  <div class="hero-content">
-    <h1>Auggie Smith</h1>
-    <p class="tagline">Capturing Light &nbsp;·&nbsp; Telling Stories &nbsp;·&nbsp; Finding Beauty</p>
-    <a href="portfolio.html" class="btn-photo">View Portfolio</a>
-  </div>
-</div>
+```{r}
+#| label: hero
+hero_section(
+  seed      = "auggie-hero",
+  name      = "Auggie Smith",
+  tagline   = "Capturing Light \u00b7 Telling Stories \u00b7 Finding Beauty",
+  cta_label = "View Portfolio",
+  cta_href  = "portfolio.html"
+)
+```
 
-<!-- ── Featured Work ──────────────────────────── -->
+```{r}
+#| label: featured-heading
+section_heading(
+  heading  = "Selected Work",
+  subtitle = "A glimpse into recent projects"
+)
+```
 
-<h2 class="section-title">Selected Work</h2>
-<hr class="section-divider">
-<p class="section-subtitle">A glimpse into recent projects</p>
+```{r}
+#| label: featured-grid
+featured_photos <- data.frame(
+  seed = c(
+    "feat-wide1",
+    "feat2", "feat3",
+    "feat4", "feat5",
+    "feat-wide2"
+  ),
+  alt = c(
+    "Golden hour landscape",
+    "Portrait in natural light",
+    "Street photography",
+    "Architecture study",
+    "Nature close-up",
+    "Evening cityscape"
+  ),
+  wide = c(TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
+  stringsAsFactors = FALSE
+)
 
-<div class="photo-grid">
+featured_grid(featured_photos)
+```
 
-  <div class="photo-item wide">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat-wide1/1200/675"
-           alt="Golden hour landscape">
-    </a>
-  </div>
-
-  <div class="photo-item">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat2/600/450"
-           alt="Portrait in natural light">
-    </a>
-  </div>
-
-  <div class="photo-item">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat3/600/450"
-           alt="Street photography">
-    </a>
-  </div>
-
-  <div class="photo-item">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat4/600/450"
-           alt="Architecture study">
-    </a>
-  </div>
-
-  <div class="photo-item">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat5/600/450"
-           alt="Nature close-up">
-    </a>
-  </div>
-
-  <div class="photo-item wide">
-    <a href="portfolio.html">
-      <img src="https://picsum.photos/seed/feat-wide2/1200/675"
-           alt="Evening cityscape">
-    </a>
-  </div>
-
-</div>
-
-<!-- ── CTA ────────────────────────────────────── -->
-
-<div class="cta-block">
-  <a href="portfolio.html" class="btn-photo">See Full Portfolio</a>
-</div>
+```{r}
+#| label: featured-cta
+cta_block("See Full Portfolio", "portfolio.html")
+```

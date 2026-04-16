@@ -2,56 +2,90 @@
 title: ""
 ---
 
-<div class="contact-container">
+```{r}
+#| label: setup
+#| include: false
+source("R/gallery.R")
+```
 
-<h1 class="section-title" style="padding-top: 2rem;">Contact</h1>
-<hr class="section-divider">
+```{r}
+#| label: contact-page
+# Contact details as a named list — edit these to personalise the page
+contact_info <- list(
+  email    = "hello@auggiesmith.photography",
+  location = "Portland, Oregon",
+  services = c("Editorial", "Commercial", "Fine Art Prints")
+)
 
-<p style="margin-top: 2.5rem;">
-  Whether you are interested in commissioning a project, licensing an
-  image, or simply want to say hello — I would love to hear from you.
-</p>
+social_links <- data.frame(
+  platform = c("Instagram", "Facebook", "500px"),
+  icon     = c("bi-instagram", "bi-facebook", "bi-camera"),
+  href     = c("https://instagram.com", "https://facebook.com", "https://500px.com"),
+  stringsAsFactors = FALSE
+)
 
-<div class="contact-details">
+# ── Build contact detail rows ─────────────────────────────────────────────────
+detail_rows <- list(
+  tags$div(
+    class = "contact-line",
+    "Email \u00a0\u2014\u00a0",
+    tags$a(href = paste0("mailto:", contact_info$email), contact_info$email)
+  ),
+  tags$div(
+    class = "contact-line",
+    "Based in \u00a0\u2014\u00a0",
+    contact_info$location
+  ),
+  tags$div(
+    class = "contact-line",
+    "Available for \u00a0\u2014\u00a0",
+    paste(contact_info$services, collapse = " \u00b7 ")
+  )
+)
 
-  <div class="contact-line">
-    Email &nbsp;—&nbsp;
-    <a href="mailto:hello@auggiesmith.photography">
-      hello@auggiesmith.photography
-    </a>
-  </div>
+# ── Build social icon links ───────────────────────────────────────────────────
+social_icons <- mapply(
+  FUN       = function(platform, icon, href) {
+    tags$a(
+      href         = href,
+      `aria-label` = platform,
+      tags$i(class = paste("bi", icon))
+    )
+  },
+  platform  = social_links$platform,
+  icon      = social_links$icon,
+  href      = social_links$href,
+  SIMPLIFY  = FALSE,
+  USE.NAMES = FALSE
+)
 
-  <div class="contact-line">
-    Based in &nbsp;—&nbsp; Portland, Oregon
-  </div>
+# ── Assemble page ─────────────────────────────────────────────────────────────
+tags$div(
+  class = "contact-container",
 
-  <div class="contact-line">
-    Available for &nbsp;—&nbsp; Editorial · Commercial · Fine Art Prints
-  </div>
+  section_heading("Contact"),
 
-</div>
+  tags$p(
+    style = "margin-top:2.5rem;",
+    "Whether you are interested in commissioning a project, licensing an",
+    "image, or simply want to say hello \u2014 I would love to hear from you."
+  ),
 
-<hr style="border-color: #222; margin: 2.5rem 0;">
+  do.call(tags$div, c(list(class = "contact-details"), detail_rows)),
 
-<p style="font-size: 0.85rem; color: #666; letter-spacing: 0.05em;">
-  I aim to respond within two business days. For time-sensitive
-  enquiries, please mention that in the subject line.
-</p>
+  tags$hr(style = "border-color:#222; margin:2.5rem 0;"),
 
-<div class="contact-social">
-  <a href="https://instagram.com" aria-label="Instagram">
-    <i class="bi bi-instagram"></i>
-  </a>
-  <a href="https://facebook.com" aria-label="Facebook">
-    <i class="bi bi-facebook"></i>
-  </a>
-  <a href="https://500px.com" aria-label="500px">
-    <i class="bi bi-camera"></i>
-  </a>
-</div>
+  tags$p(
+    style = "font-size:0.85rem; color:#666; letter-spacing:0.05em;",
+    "I aim to respond within two business days.",
+    "For time-sensitive enquiries, please mention that in the subject line."
+  ),
 
-<div style="margin-top: 3rem;">
-  <a href="portfolio.html" class="btn-photo btn-photo-muted">View Portfolio</a>
-</div>
+  do.call(tags$div, c(list(class = "contact-social"), social_icons)),
 
-</div>
+  tags$div(
+    style = "margin-top:3rem;",
+    tags$a(href = "portfolio.html", class = "btn-photo btn-photo-muted", "View Portfolio")
+  )
+)
+```

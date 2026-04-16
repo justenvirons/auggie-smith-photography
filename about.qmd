@@ -17,45 +17,44 @@ tags$div(
   tags$img(
     src   = picsum_url("auggie-about", 1720L, 968L),
     class = "about-hero-img",
-    alt   = "Auggie Smith photographing in the field"
+    alt   = "Auggie Smith with camera in the field"
   ),
 
   # ── Bio ───────────────────────────────────────────────────────────────────
   tags$h2("About"),
   tags$p(
-    "I am a photographer based in the Pacific Northwest, drawn to the quiet",
-    "beauty of landscapes, the authenticity of documentary portraiture, and",
-    "the unexpected poetry found in city streets."
+    "I\u2019m Auggie Smith, a high school photographer based in Oak Park, Illinois,",
+    "just outside Chicago. I picked up my first camera a couple of years ago",
+    "and haven\u2019t put it down since."
   ),
   tags$p(
-    "Photography, for me, is an act of paying attention \u2014 of being present",
-    "enough to notice what most people walk past. Whether I am waiting for",
-    "light to fall just right on a mountain ridge, or chasing a fleeting",
-    "expression in a crowded market, I am always searching for that singular",
-    "moment where everything comes together."
+    "Chicago gives me an endless canvas \u2014 the architecture, the lakefront,",
+    "the neighborhoods, the people. Oak Park adds a quieter counterpoint:",
+    "tree-lined streets, Frank Lloyd Wright rooflines, and the kind of",
+    "everyday moments that are easy to walk past if you\u2019re not paying",
+    "attention. I\u2019m still learning how to see, and that\u2019s the part I love most."
   ),
   tags$p(
-    "My work has been exhibited across the region and published in editorial",
-    "and commercial contexts. I am available for landscape, portrait, and",
-    "editorial assignments, as well as fine-art print commissions."
+    "Right now I\u2019m especially interested in macro work \u2014 getting close enough",
+    "to a subject that the familiar becomes strange. I\u2019m also drawn to wide",
+    "environmental shots that put a person or object in context with the",
+    "world around it. Both feel like opposite ends of the same question:",
+    "how much do you show, and how much do you leave out?"
   ),
 
-  # ── Recognition ───────────────────────────────────────────────────────────
-  tags$h2("Recognition & Publications"),
+  # ── Milestones ────────────────────────────────────────────────────────────
+  tags$h2("Milestones"),
   {
-    recognition <- list(
-      list(year = 2024, item = "Pacific Northwest Photography Award \u2014 Landscape finalist"),
-      list(year = 2022, item = "Travel + Leisure Magazine \u2014 Contributing photographer (2022\u20132024)"),
-      list(year = 2023, item = "Northwest Galleries, Portland \u2014 Solo exhibition, \u201cLight & Distance\u201d"),
-      list(year = 2021, item = "Documentary Photography Fellowship \u2014 State Arts Commission"),
-      list(year = 2020, item = "Outdoor Photographer \u2014 Featured portfolio")
+    milestones <- list(
+      list(year = 2025, item = "Oak Park Township Youth Arts Showcase \u2014 Photography category"),
+      list(year = 2025, item = "Oak Park & River Forest High School Photography Club \u2014 member"),
+      list(year = 2024, item = "Chicago Botanic Garden student photo walk \u2014 selected participant"),
+      list(year = 2024, item = "First macro series \u2014 \u201cClose\u201d \u2014 shared on Instagram")
     )
-    # Sort descending by year
-    recognition <- recognition[order(sapply(recognition, `[[`, "year"), decreasing = TRUE)]
-    items <- lapply(recognition, function(r) {
+    items <- lapply(milestones, function(m) {
       tags$li(
-        tags$strong(r$year),
-        HTML(paste0(" &nbsp;\u2014&nbsp; ", r$item))
+        tags$strong(m$year),
+        HTML(paste0(" &nbsp;\u2014&nbsp; ", m$item))
       )
     })
     do.call(tags$ul, items)
@@ -64,23 +63,20 @@ tags$div(
   # ── Approach ──────────────────────────────────────────────────────────────
   tags$h2("Approach"),
   tags$p(
-    "I believe a photograph earns its place not by being technically",
-    "perfect, but by making you feel something. I shoot available light",
-    "whenever possible, preferring the honesty of natural conditions over",
-    "the control of a studio. My post-processing philosophy is restrained:",
-    "enhance what is already there, remove nothing that belongs."
+    "I shoot mostly natural light. I\u2019m still figuring out my editing style,",
+    "but I tend to pull back on heavy processing \u2014 I\u2019d rather the image look",
+    "like something that actually happened. The best photos I\u2019ve taken were",
+    "accidents I almost deleted."
   ),
 
   # ── Equipment ─────────────────────────────────────────────────────────────
   tags$h2("Equipment"),
   {
     gear <- c(
-      "Nikon Z7 II (primary body)",
-      "NIKKOR Z 24mm f/1.8 S",
-      "NIKKOR Z 50mm f/1.2 S",
-      "NIKKOR Z 85mm f/1.8 S",
-      "Carbon-fibre tripod with ball head",
-      "Neutral-density filter set (3\u201310 stop)"
+      "Fujifilm X-T5",
+      "Canon EOS R50",
+      "Macro lens \u2014 for close-up and detail work",
+      "Wide angle lens \u2014 for architecture, landscapes, and environmental portraits"
     )
     items <- lapply(gear, tags$li)
     do.call(tags$ul, items)

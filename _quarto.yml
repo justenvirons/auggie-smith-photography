@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Auggie Smith Photography"
+  site-url: "http://www.auggie-smith-photography.com"
   navbar:
     background: dark
     foreground: light

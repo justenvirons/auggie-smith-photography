@@ -1,0 +1,57 @@
+---
+title: ""
+---
+
+<div class="contact-container">
+
+<h1 class="section-title" style="padding-top: 2rem;">Contact</h1>
+<hr class="section-divider">
+
+<p style="margin-top: 2.5rem;">
+  Whether you are interested in commissioning a project, licensing an
+  image, or simply want to say hello — I would love to hear from you.
+</p>
+
+<div class="contact-details">
+
+  <div class="contact-line">
+    Email &nbsp;—&nbsp;
+    <a href="mailto:hello@auggiesmith.photography">
+      hello@auggiesmith.photography
+    </a>
+  </div>
+
+  <div class="contact-line">
+    Based in &nbsp;—&nbsp; Portland, Oregon
+  </div>
+
+  <div class="contact-line">
+    Available for &nbsp;—&nbsp; Editorial · Commercial · Fine Art Prints
+  </div>
+
+</div>
+
+<hr style="border-color: #222; margin: 2.5rem 0;">
+
+<p style="font-size: 0.85rem; color: #666; letter-spacing: 0.05em;">
+  I aim to respond within two business days. For time-sensitive
+  enquiries, please mention that in the subject line.
+</p>
+
+<div class="contact-social">
+  <a href="https://instagram.com" aria-label="Instagram">
+    <i class="bi bi-instagram"></i>
+  </a>
+  <a href="https://facebook.com" aria-label="Facebook">
+    <i class="bi bi-facebook"></i>
+  </a>
+  <a href="https://500px.com" aria-label="500px">
+    <i class="bi bi-camera"></i>
+  </a>
+</div>
+
+<div style="margin-top: 3rem;">
+  <a href="portfolio.html" class="btn-photo btn-photo-muted">View Portfolio</a>
+</div>
+
+</div>

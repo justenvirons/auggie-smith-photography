@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Auggie Smith Photography"
+  navbar:
+    background: dark
+    foreground: light
+    left:
+      - href: index.qmd
+        text: Home
+      - href: portfolio.qmd
+        text: Portfolio
+      - href: about.qmd
+        text: About
+      - href: contact.qmd
+        text: Contact
+    right:
+      - icon: instagram
+        href: "https://instagram.com"
+        aria-label: Instagram
+      - icon: facebook
+        href: "https://facebook.com"
+        aria-label: Facebook
+  page-footer:
+    background: dark
+    center: "© 2026 Auggie Smith Photography &nbsp;·&nbsp; All Rights Reserved"
+
+format:
+  html:
+    theme: darkly
+    css: styles.css
+    toc: false
+    lightbox: true

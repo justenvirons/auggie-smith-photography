@@ -1,5 +1,64 @@
 library(htmltools)
 
+# ── CMS data helpers ───────────────────────────────────────────────────────────
+
+#' Load photos from the CMS data store for a given category.
+#' Returns NULL when no CMS data exists, so callers can fall back to placeholders.
+#'
+#' @param category  One of "landscapes", "portraits", "street", "architecture"
+load_cms_photos <- function(category) {
+  data_file <- "data/photos.json"
+  if (!file.exists(data_file)) return(NULL)
+  tryCatch({
+    raw <- jsonlite::fromJSON(data_file, simplifyDataFrame = TRUE)
+    if (is.null(raw) || length(raw) == 0) return(NULL)
+    df <- as.data.frame(raw, stringsAsFactors = FALSE)
+    df <- df[df$category == category, ]
+    if (nrow(df) == 0) return(NULL)
+    df
+  }, error = function(e) NULL)
+}
+
+#' Create one lightbox-enabled gallery thumbnail from a local file path.
+#'
+#' @param src          Relative path to the image (e.g. "images/landscapes/file.jpg")
+#' @param title        Caption shown in the lightbox
+#' @param gallery_name Groups images for prev/next lightbox navigation
+gallery_item_local <- function(src, title, gallery_name) {
+  tags$div(
+    class = "gallery-item",
+    tags$a(
+      href           = src,
+      class          = "lightbox",
+      `data-gallery` = gallery_name,
+      title          = title,
+      tags$img(src = src, alt = title)
+    )
+  )
+}
+
+#' Render a gallery section using uploaded CMS photos.
+#'
+#' @param id       HTML anchor id; also used as the lightbox group name
+#' @param heading  Display heading text
+#' @param subtitle Small italic subtitle below the heading
+#' @param photos   data.frame from load_cms_photos() with columns filename, title, category
+gallery_section_cms <- function(id, heading, subtitle, photos) {
+  items <- lapply(seq_len(nrow(photos)), function(i) {
+    src <- file.path("images", photos$category[i], photos$filename[i])
+    gallery_item_local(src, photos$title[i], id)
+  })
+
+  grid <- do.call(tags$div, c(list(class = "gallery-grid"), items))
+
+  tagList(
+    tags$h2(class = "section-title", id = id, heading),
+    tags$hr(class = "section-divider"),
+    tags$p(class = "section-subtitle", subtitle),
+    grid
+  )
+}
+
 # ── Image URL helpers ──────────────────────────────────────────────────────────
 
 #' Build a picsum.photos URL (seed-based for consistent results)

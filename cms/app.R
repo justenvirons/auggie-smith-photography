@@ -5,9 +5,8 @@ library(DT)
 library(tools)
 
 # ── Paths & config ─────────────────────────────────────────────────────────────
-ROOT      <- normalizePath(file.path(getwd(), ".."))
-DATA_FILE <- file.path(ROOT, "data", "photos.json")
-IMG_DIR   <- file.path(ROOT, "images")
+DATA_FILE <- "data/photos.json"
+IMG_DIR   <- normalizePath("images", mustWork = FALSE)
 
 CATEGORIES <- c(
   "Landscapes"   = "landscapes",

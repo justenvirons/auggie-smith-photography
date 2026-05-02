@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: _site
   resources:
-    - images/
+    - cms/images/
 
 website:
   title: "Auggie Smith Photography"

@@ -7,7 +7,7 @@ library(htmltools)
 #'
 #' @param category  One of "landscapes", "portraits", "street", "architecture"
 load_cms_photos <- function(category) {
-  data_file <- "data/photos.json"
+  data_file <- "cms/data/photos.json"
   if (!file.exists(data_file)) return(NULL)
   tryCatch({
     raw <- jsonlite::fromJSON(data_file, simplifyDataFrame = TRUE)
@@ -45,7 +45,7 @@ gallery_item_local <- function(src, title, gallery_name) {
 #' @param photos   data.frame from load_cms_photos() with columns filename, title, category
 gallery_section_cms <- function(id, heading, subtitle, photos) {
   items <- lapply(seq_len(nrow(photos)), function(i) {
-    src <- file.path("images", photos$category[i], photos$filename[i])
+    src <- file.path("cms", "images", photos$category[i], photos$filename[i])
     gallery_item_local(src, photos$title[i], id)
   })
 

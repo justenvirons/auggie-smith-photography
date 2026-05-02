@@ -25,94 +25,134 @@ tagList(
 
 ```{r}
 #| label: landscapes
-landscapes <- data.frame(
-  seed = paste0("land", 1:6),
-  title = c(
-    "Mountain vista at sunrise",
-    "Coastal cliffs at dusk",
-    "Forest path in autumn",
-    "Desert sand dunes",
-    "Lake reflection at dawn",
-    "Rolling hills at golden hour"
-  ),
-  stringsAsFactors = FALSE
-)
+cms_land <- load_cms_photos("landscapes")
 
-gallery_section(
-  id       = "landscapes",
-  heading  = "Landscapes",
-  subtitle = "Light, land, and open horizons",
-  photos   = landscapes
-)
+if (!is.null(cms_land)) {
+  gallery_section_cms(
+    id       = "landscapes",
+    heading  = "Landscapes",
+    subtitle = "Light, land, and open horizons",
+    photos   = cms_land
+  )
+} else {
+  landscapes <- data.frame(
+    seed = paste0("land", 1:6),
+    title = c(
+      "Mountain vista at sunrise",
+      "Coastal cliffs at dusk",
+      "Forest path in autumn",
+      "Desert sand dunes",
+      "Lake reflection at dawn",
+      "Rolling hills at golden hour"
+    ),
+    stringsAsFactors = FALSE
+  )
+  gallery_section(
+    id       = "landscapes",
+    heading  = "Landscapes",
+    subtitle = "Light, land, and open horizons",
+    photos   = landscapes
+  )
+}
 ```
 
 ```{r}
 #| label: portraits
-portraits <- data.frame(
-  seed = paste0("port", 1:6),
-  title = c(
-    "Window light portrait",
-    "Environmental portrait",
-    "Candid moment",
-    "Studio portrait",
-    "Documentary portrait",
-    "Golden hour portrait"
-  ),
-  stringsAsFactors = FALSE
-)
+cms_port <- load_cms_photos("portraits")
 
-gallery_section(
-  id       = "portraits",
-  heading  = "Portraits",
-  subtitle = "People in their truest light",
-  photos   = portraits
-)
+if (!is.null(cms_port)) {
+  gallery_section_cms(
+    id       = "portraits",
+    heading  = "Portraits",
+    subtitle = "People in their truest light",
+    photos   = cms_port
+  )
+} else {
+  portraits <- data.frame(
+    seed = paste0("port", 1:6),
+    title = c(
+      "Window light portrait",
+      "Environmental portrait",
+      "Candid moment",
+      "Studio portrait",
+      "Documentary portrait",
+      "Golden hour portrait"
+    ),
+    stringsAsFactors = FALSE
+  )
+  gallery_section(
+    id       = "portraits",
+    heading  = "Portraits",
+    subtitle = "People in their truest light",
+    photos   = portraits
+  )
+}
 ```
 
 ```{r}
 #| label: street
-street <- data.frame(
-  seed = paste0("str", 1:6),
-  title = c(
-    "Urban life",
-    "City at night",
-    "Market scene",
-    "Rain-slicked streets",
-    "Morning commute",
-    "Street performer"
-  ),
-  stringsAsFactors = FALSE
-)
+cms_street <- load_cms_photos("street")
 
-gallery_section(
-  id       = "street",
-  heading  = "Street",
-  subtitle = "The city\u2019s unrehearsed moments",
-  photos   = street
-)
+if (!is.null(cms_street)) {
+  gallery_section_cms(
+    id       = "street",
+    heading  = "Street",
+    subtitle = "The city’s unrehearsed moments",
+    photos   = cms_street
+  )
+} else {
+  street <- data.frame(
+    seed = paste0("str", 1:6),
+    title = c(
+      "Urban life",
+      "City at night",
+      "Market scene",
+      "Rain-slicked streets",
+      "Morning commute",
+      "Street performer"
+    ),
+    stringsAsFactors = FALSE
+  )
+  gallery_section(
+    id       = "street",
+    heading  = "Street",
+    subtitle = "The city’s unrehearsed moments",
+    photos   = street
+  )
+}
 ```
 
 ```{r}
 #| label: architecture
-architecture <- data.frame(
-  seed = paste0("arch", 1:6),
-  title = c(
-    "Modern facade",
-    "Historic building",
-    "Interior spaces",
-    "Geometric patterns",
-    "Bridge structure",
-    "Urban skyline"
-  ),
-  stringsAsFactors = FALSE
-)
+cms_arch <- load_cms_photos("architecture")
 
-gallery_section(
-  id       = "architecture",
-  heading  = "Architecture",
-  subtitle = "Structure, shadow, and geometry",
-  photos   = architecture
-)
+if (!is.null(cms_arch)) {
+  gallery_section_cms(
+    id       = "architecture",
+    heading  = "Architecture",
+    subtitle = "Structure, shadow, and geometry",
+    photos   = cms_arch
+  )
+} else {
+  architecture <- data.frame(
+    seed = paste0("arch", 1:6),
+    title = c(
+      "Modern facade",
+      "Historic building",
+      "Interior spaces",
+      "Geometric patterns",
+      "Bridge structure",
+      "Urban skyline"
+    ),
+    stringsAsFactors = FALSE
+  )
+  gallery_section(
+    id       = "architecture",
+    heading  = "Architecture",
+    subtitle = "Structure, shadow, and geometry",
+    photos   = architecture
+  )
+}
 ```
 
 ```{r}

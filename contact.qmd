@@ -12,8 +12,8 @@ source("R/gallery.R")
 #| label: contact-page
 # Contact details as a named list — edit these to personalise the page
 contact_info <- list(
-  email    = "hello@auggiesmith.photography",
-  location = "Portland, Oregon",
+  text    = "(+1) 331.777.0897",
+  location = "CHICAGO | ILLINOIS | MICHIGAN",
   services = c("Editorial", "Commercial", "Fine Art Prints")
 )
 

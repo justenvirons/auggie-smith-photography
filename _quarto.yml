@@ -3,6 +3,9 @@ project:
   output-dir: _site
   resources:
     - cms/images/
+  render:
+    - "*.qmd"
+    - "!server-setup-guide.qmd"
 
 website:
   title: "Auggie Smith Photography"

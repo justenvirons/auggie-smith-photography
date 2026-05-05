@@ -204,6 +204,12 @@ cms_page <- function() {
           document.querySelectorAll('.cms-panel').forEach(p => p.classList.remove('active'));
           this.classList.add('active');
           document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+          // Redraw DataTables after the manage panel becomes visible
+          if (this.dataset.tab === 'manage') {
+            setTimeout(function() {
+              window.dispatchEvent(new Event('resize'));
+            }, 50);
+          }
         });
       });
     "))
@@ -407,11 +413,12 @@ server <- function(input, output, session) {
 
     datatable(
       tbl,
-      escape   = FALSE,
-      rownames = FALSE,
-      options  = list(
+      escape    = FALSE,
+      rownames  = FALSE,
+      options   = list(
         pageLength = 10,
         dom        = "frtip",
+        autoWidth  = FALSE,
         columnDefs = list(
           list(orderable = FALSE, targets = c(0L, 5L)),
           list(width = "72px",  targets = 0L),

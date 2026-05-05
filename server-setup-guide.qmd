@@ -299,3 +299,75 @@ sudo rm -rf _freeze .quarto
 sudo -u shiny quarto render 2>&1 | tee /tmp/render.log
 cat /tmp/render.log
 ```
+
+If the render produces unexpected results, clear the Quarto cache first:
+
+```bash
+cd /srv/auggie-smith-photography
+sudo rm -rf _freeze .quarto
+sudo -u shiny quarto render
+```
+
+---
+
+## Automatic Security Updates
+
+### Setup
+
+Ubuntu's `unattended-upgrades` package applies OS security patches automatically.
+Run these once to install and enable it:
+
+```bash
+sudo apt install -y unattended-upgrades
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
+
+Answer **Yes** at the prompt. The service runs daily in the background — no
+cron job is needed.
+
+Verify it is active:
+
+```bash
+sudo systemctl status unattended-upgrades
+```
+
+### What it does
+
+- Automatically installs security patches from Ubuntu Security Updates only
+- Does **not** upgrade major packages or the OS version
+- Logs activity to `/var/log/unattended-upgrades/`
+
+### Optional — automatic reboot for kernel patches
+
+Some security patches require a reboot to take effect. To allow the server
+to reboot automatically at a quiet time:
+
+```bash
+sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+```
+
+Find and uncomment these two lines:
+
+```
+Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-Time "03:00";
+```
+
+This reboots the server at 3am only when a patch requires it.
+
+### Check the update log
+
+```bash
+sudo cat /var/log/unattended-upgrades/unattended-upgrades.log
+```
+
+### Update policy summary
+
+| Component | Auto-update | Reason |
+|---|---|---|
+| OS security patches | Yes — `unattended-upgrades` | Low risk, high importance |
+| OS major upgrades | No | Can break dependencies |
+| R packages | No | Can break the CMS app |
+| Quarto | No | Can break the site render |
+| Shiny Server | No | Can break the CMS app |
+| SSL certificates | Yes — Certbot handles automatically | Required for HTTPS |

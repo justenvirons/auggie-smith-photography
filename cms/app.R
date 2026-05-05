@@ -114,8 +114,15 @@ cms_page <- function() {
         tags$button(class = "cms-tab", `data-tab` = "manage",
                     tags$i(class = "fa-solid fa-images"), " Manage")
       ),
-      actionButton("logout_btn", tagList(tags$i(class = "fa-solid fa-arrow-right-from-bracket"), " Log Out"),
-                   class = "btn-sm btn-outline-light")
+      div(
+        class = "cms-navbar-right",
+        actionButton("publish_btn",
+                     HTML('<i class="fa-solid fa-rocket"></i> Publish Site'),
+                     class = "btn-sm btn-publish me-2"),
+        actionButton("logout_btn",
+                     HTML('<i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out'),
+                     class = "btn-sm btn-outline-light")
+      )
     ),
 
     # Tab: Dashboard
@@ -507,6 +514,52 @@ server <- function(input, output, session) {
 
     del_id_rv(NULL)
     removeModal()
+  })
+
+  # ── Publish ────────────────────────────────────────────────────────────────
+  observeEvent(input$publish_btn, {
+    showModal(modalDialog(
+      title     = HTML('<i class="fa-solid fa-rocket"></i> Publishing Site'),
+      size      = "s",
+      easyClose = FALSE,
+      footer    = NULL,
+      p("Re-rendering the site with the latest photos. This may take a minute…"),
+      div(class = "progress mt-2",
+          div(class = "progress-bar progress-bar-striped progress-bar-animated w-100"))
+    ))
+
+    quarto <- Sys.which("quarto")
+    if (quarto == "") quarto <- "/usr/local/bin/quarto"
+
+    project_root <- normalizePath(file.path(getwd(), ".."))
+
+    result <- tryCatch(
+      system2(quarto, args = c("render", project_root),
+              stdout = TRUE, stderr = TRUE, wait = TRUE),
+      error = function(e) structure(conditionMessage(e), status = 1L)
+    )
+
+    status <- attr(result, "status") %||% 0L
+    removeModal()
+
+    if (identical(status, 0L)) {
+      showModal(modalDialog(
+        title     = HTML('<i class="fa-solid fa-circle-check" style="color:#5cb85c"></i> Published'),
+        size      = "s",
+        easyClose = TRUE,
+        p("Site rebuilt successfully. Changes are now live."),
+        footer    = modalButton("Close")
+      ))
+    } else {
+      showModal(modalDialog(
+        title     = HTML('<i class="fa-solid fa-circle-xmark" style="color:#d9534f"></i> Render Failed'),
+        size      = "l",
+        easyClose = TRUE,
+        p("quarto render returned an error:"),
+        tags$pre(class = "small", paste(result, collapse = "\n")),
+        footer    = modalButton("Close")
+      ))
+    }
   })
 }
 

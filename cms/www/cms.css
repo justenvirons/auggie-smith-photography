@@ -134,6 +134,26 @@ body {
 
 .cms-tab i { margin-right: 0.3rem; }
 
+.cms-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.btn-publish {
+  background-color: #c8a96e;
+  border-color: #c8a96e;
+  color: #0e0e0e;
+  font-weight: 500;
+}
+
+.btn-publish:hover, .btn-publish:focus {
+  background-color: #b8996a;
+  border-color: #b8996a;
+  color: #0e0e0e;
+}
+
 /* ── Panel switching ─────────────────────────────────────────────────────── */
 .cms-panel { display: none; }
 .cms-panel.active { display: block; }

@@ -290,6 +290,7 @@ When changes are pushed to GitHub, pull and re-render on the server:
 
 ```bash
 cd /srv/auggie-smith-photography
-sudo -u shiny git pull origin main
-sudo -u shiny quarto render
+sudo rm -rf _freeze .quarto
+sudo -u shiny quarto render 2>&1 | tee /tmp/render.log
+cat /tmp/render.log
 ```

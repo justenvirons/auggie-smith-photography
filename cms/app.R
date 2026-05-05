@@ -196,23 +196,6 @@ cms_page <- function() {
       )
     ),
 
-    # Tab-switching JS
-    tags$script(HTML("
-      document.querySelectorAll('.cms-tab').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.cms-tab').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('.cms-panel').forEach(p => p.classList.remove('active'));
-          this.classList.add('active');
-          document.getElementById('tab-' + this.dataset.tab).classList.add('active');
-          // Redraw DataTables after the manage panel becomes visible
-          if (this.dataset.tab === 'manage') {
-            setTimeout(function() {
-              window.dispatchEvent(new Event('resize'));
-            }, 50);
-          }
-        });
-      });
-    "))
   )
 }
 
@@ -224,7 +207,8 @@ ui <- fluidPage(
       rel  = "stylesheet",
       href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     ),
-    includeCSS("www/cms.css")
+    includeCSS("www/cms.css"),
+    includeScript("www/cms.js")
   ),
   uiOutput("root_ui")
 )
@@ -236,6 +220,9 @@ server <- function(input, output, session) {
   photos_rv  <- reactiveVal(read_photos())
   edit_id_rv <- reactiveVal(NULL)
   del_id_rv  <- reactiveVal(NULL)
+
+  # Render the DataTable even when its panel is hidden
+  outputOptions(output, "photos_dt", suspendWhenHidden = FALSE)
 
   # Root UI switch
   output$root_ui <- renderUI({

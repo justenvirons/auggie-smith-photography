@@ -221,9 +221,6 @@ server <- function(input, output, session) {
   edit_id_rv <- reactiveVal(NULL)
   del_id_rv  <- reactiveVal(NULL)
 
-  # Render the DataTable even when its panel is hidden
-  outputOptions(output, "photos_dt", suspendWhenHidden = FALSE)
-
   # Root UI switch
   output$root_ui <- renderUI({
     if (logged_in()) cms_page() else login_page()
@@ -414,6 +411,9 @@ server <- function(input, output, session) {
       )
     )
   })
+
+  # Render the DataTable even when its panel is hidden
+  outputOptions(output, "photos_dt", suspendWhenHidden = FALSE)
 
   # ── Edit modal ─────────────────────────────────────────────────────────────
   observeEvent(input$edit_id, {

@@ -12,46 +12,49 @@ format:
   pdf:
     toc: true
     toc-depth: 2
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Overview
 
 This guide covers the full configuration of the Auggie Smith Photography
-website on an Ubuntu server running nginx, including the Shiny CMS application
-for photo uploads.
+website on an Ubuntu server running nginx, including the Shiny CMS
+application for photo uploads.
 
 **Architecture**
 
 | Component | Location | Purpose |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | Static site | `/srv/auggie-smith-photography/_site` | Quarto-rendered portfolio |
 | CMS app | `/srv/auggie-smith-photography/cms` | Shiny photo upload interface |
 | Images | `/srv/auggie-smith-photography/cms/images` | Uploaded photographs |
 | Photo metadata | `/srv/auggie-smith-photography/cms/data/photos.json` | CMS data store |
 
----
+------------------------------------------------------------------------
 
 ## Prerequisites
 
-- Ubuntu server with nginx installed
-- Domain name pointed at the server
-- SSH access with sudo privileges
+-   Ubuntu server with nginx installed
+-   Domain name pointed at the server
+-   SSH access with sudo privileges
 
----
+------------------------------------------------------------------------
 
 ## Step 1 — Install Git
 
-```bash
+``` bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y git
 git --version
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 2 — Install R
 
-```bash
+``` bash
 sudo apt install -y software-properties-common dirmngr
 
 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
@@ -65,25 +68,26 @@ sudo apt update
 sudo apt install -y r-base r-base-dev
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 3 — Install System Libraries
 
-```bash
+``` bash
 sudo apt install -y build-essential libcurl4-openssl-dev libssl-dev \
   libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev \
   libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libuv1-dev
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 4 — Install Quarto
 
-Check the latest release at <https://github.com/quarto-dev/quarto-cli/releases>.
-Confirm server architecture with `uname -m` — use `amd64` for x86_64 servers
-and `arm64` for ARM servers.
+Check the latest release at
+<https://github.com/quarto-dev/quarto-cli/releases>. Confirm server
+architecture with `uname -m` — use `amd64` for x86_64 servers and
+`arm64` for ARM servers.
 
-```bash
+``` bash
 wget -P /tmp \
   https://github.com/quarto-dev/quarto-cli/releases/download/v1.9.37/quarto-1.9.37-linux-amd64.deb
 
@@ -91,13 +95,14 @@ sudo gdebi /tmp/quarto-1.9.37-linux-amd64.deb
 quarto --version
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 5 — Install Shiny Server
 
-Check the latest Ubuntu/Debian installer at <https://posit.co/download/shiny-server/>.
+Check the latest Ubuntu/Debian installer at
+<https://posit.co/download/shiny-server/>.
 
-```bash
+``` bash
 wget -P /tmp \
   https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.22.1017-amd64.deb
 
@@ -105,63 +110,63 @@ sudo gdebi /tmp/shiny-server-1.5.22.1017-amd64.deb
 sudo systemctl status shiny-server
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 6 — Install Required R Packages
 
-```bash
+``` bash
 sudo R -e "install.packages(
   c('shiny', 'bslib', 'jsonlite', 'DT', 'htmltools', 'tools'),
   repos = 'https://cloud.r-project.org'
 )"
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 7 — Clone the Repository
 
-```bash
+``` bash
 sudo git clone https://github.com/justenvirons/auggie-smith-photography.git \
   /srv/auggie-smith-photography
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 8 — Set Permissions
 
 The `shiny` user runs the Shiny Server process and must own the project
 directory so it can write uploaded images and re-render the site.
 
-```bash
+``` bash
 sudo chown -R shiny:shiny /srv/auggie-smith-photography
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 9 — Initial Quarto Render
 
-```bash
+``` bash
 cd /srv/auggie-smith-photography
 sudo -u shiny quarto render
 ```
 
 Confirm `_site/` was created:
 
-```bash
+``` bash
 ls /srv/auggie-smith-photography/_site
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 10 — Configure Shiny Server
 
-```bash
+``` bash
 sudo nano /etc/shiny-server/shiny-server.conf
 ```
 
 Replace the contents with:
 
-```nginx
+``` nginx
 run_as shiny;
 
 server {
@@ -174,16 +179,16 @@ server {
 }
 ```
 
-```bash
+``` bash
 sudo systemctl restart shiny-server
 sudo systemctl status shiny-server
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 11 — Obtain SSL Certificate
 
-```bash
+``` bash
 sudo apt install -y certbot python3-certbot-nginx
 
 sudo certbot --nginx \
@@ -194,15 +199,15 @@ sudo certbot --nginx \
 Certbot automatically adds HTTP → HTTPS redirect blocks to `nginx.conf`.
 Do not edit those blocks manually — Certbot manages them on renewal.
 
----
+------------------------------------------------------------------------
 
 ## Step 12 — Configure nginx
 
-```bash
+``` bash
 sudo nano /etc/nginx/sites-available/auggie-smith
 ```
 
-```nginx
+``` nginx
 server {
     listen 443 ssl;
     server_name auggie-smith-photography.com www.auggie-smith-photography.com;
@@ -240,7 +245,7 @@ server {
 
 Enable the site, disable the default, then test and reload:
 
-```bash
+``` bash
 sudo ln -s /etc/nginx/sites-available/auggie-smith \
            /etc/nginx/sites-enabled/auggie-smith
 
@@ -250,45 +255,45 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
----
+------------------------------------------------------------------------
 
 ## Step 13 — Verify the Setup
 
 Open a browser and confirm:
 
-| URL | Expected result |
-|---|---|
-| `https://auggie-smith-photography.com` | Static portfolio site |
-| `https://auggie-smith-photography.com/cms` | CMS login screen |
+| URL                                        | Expected result       |
+|--------------------------------------------|-----------------------|
+| `https://auggie-smith-photography.com`     | Static portfolio site |
+| `https://auggie-smith-photography.com/cms` | CMS login screen      |
 
----
+------------------------------------------------------------------------
 
 ## CMS Credentials
 
-Default credentials (override by setting environment variables `CMS_USER`
-and `CMS_PASS` on the server):
+Default credentials (override by setting environment variables
+`CMS_USER` and `CMS_PASS` on the server):
 
-| Field | Default |
-|---|---|
-| Username | `admin` |
+| Field    | Default      |
+|----------|--------------|
+| Username | `admin`      |
 | Password | `auggie2026` |
 
----
+------------------------------------------------------------------------
 
 ## Ongoing Workflow
 
-1. Log in at `https://auggie-smith-photography.com/cms`
-2. Upload a photo with title, category, and optional description
-3. Click **Publish Site** — re-renders the Quarto site on the server
-4. The new photo appears live on the portfolio page immediately
+1.  Log in at `https://auggie-smith-photography.com/cms`
+2.  Upload a photo with title, category, and optional description
+3.  Click **Publish Site** — re-renders the Quarto site on the server
+4.  The new photo appears live on the portfolio page immediately
 
----
+------------------------------------------------------------------------
 
 ## Updating Site Code
 
 When changes are pushed to GitHub, pull and re-render on the server:
 
-```bash
+``` bash
 cd /srv/auggie-smith-photography
 sudo rm -rf _freeze .quarto
 sudo -u shiny quarto render 2>&1 | tee /tmp/render.log
